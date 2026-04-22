@@ -125,9 +125,5 @@ public:
         return score; // 양수면 백 유리, 음수면 흑 유리
     }
 	
-	vector<tuple<int, int, int, int>> generateMoves(const ChessBoard& cb, bool white) {
 
-	}
-    
-	tuple<int, int, int, int> getBestMove(const ChessBoard& cb, bool whiteTrun) {}
 };
