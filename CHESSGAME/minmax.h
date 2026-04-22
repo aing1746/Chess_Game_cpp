@@ -115,7 +115,7 @@ private:
                         if (!mv.isLegalMove(cb, p, fr, fc, tr, tc,
                             gs.lastMoveWasDoublePawn, gs.lastPawnRow, gs.lastPawnCol)) continue;
 
-                        // 이동 후 내 킹이 체크인지 확인
+                        // 이동 시뮬레이션 후 내 킹 체크 여부 확인
                         ChessBoard temp = cb;
                         temp.makeMove(fr, fc, tr, tc);
                         if (mv.inCheck(temp, white)) continue;
@@ -167,6 +167,9 @@ private:
     }
 
 public:
+    vector<tuple<int,int,int,int>> getGenerateMoves(const ChessBoard& cb, const GameState& gs, bool white) {
+        return generateMoves(cb, gs, white);
+    }
     // depth: 탐색 깊이 (3~4 권장, 높을수록 강하지만 느림)
     tuple<int,int,int,int> getBestMove(const ChessBoard& cb, const GameState& gs, bool whiteTurn, int depth = 3) {
         auto moves = generateMoves(cb, gs, whiteTurn);

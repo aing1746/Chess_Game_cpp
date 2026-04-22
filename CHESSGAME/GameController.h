@@ -56,21 +56,33 @@ public:
             
             // 흑을 AI로 설정
             if (!gs.whiteTurn) {
+                auto moves = minmax.getGenerateMoves(cb, gs, false);
+                if (moves.empty()) {
+                    cb.printBoard();
+                    if (mv.inCheck(cb, false)) cout << "black Checkmate! Game over\n";
+                    else cout << "Stalemate! It's a draw\n";
+                    break;
+                }
+
                 auto [fr, fc, tr, tc] = minmax.getBestMove(cb, gs, false);
                 cb.makeMove(fr, fc, tr, tc);
                 gs.whiteTurn = true;
 
-                if (mv.inCheck(cb, gs.whiteTurn)) {
-                    if (!hasAnyLegalMove(gs.whiteTurn)) {
+                if (mv.inCheck(cb, true)) {
+                    auto whiteMoves = minmax.getGenerateMoves(cb, gs, true);
+                    if (whiteMoves.empty()) {
                         cb.printBoard();
                         cout << "white Checkmate! Game over\n";
                         break;
                     }
                     cout << "white check!\n";
-                } else if (!hasAnyLegalMove(gs.whiteTurn)) {
-                    cb.printBoard();
-                    cout << "Stalemate! It's a draw\n";
-                    break;
+                } else {
+                    auto whiteMoves = minmax.getGenerateMoves(cb, gs, true);
+                    if (whiteMoves.empty()) {
+                        cb.printBoard();
+                        cout << "Stalemate! It's a draw\n";
+                        break;
+                    }
                 }
                 continue;
             }
