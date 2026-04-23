@@ -20,7 +20,7 @@ public:
     bool isSquareAttacked(const ChessBoard& cb, int r, int c, bool byWhite) const {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                string p = cb.board[i][j];
+                std::string p = cb.board[i][j];
                 if (p == ".") continue;
                 if (byWhite && !isupper(p[0])) continue;
                 if (!byWhite && isupper(p[0])) continue;
@@ -45,7 +45,7 @@ public:
     }
 
     // enPassant 상태를 매개변수로 받아서 판단
-    bool isLegalMove(const ChessBoard& cb, const string& piece,
+    bool isLegalMove(const ChessBoard& cb, const std::string& piece,
                      int fr, int fc, int tr, int tc,
                      bool lastMoveWasDoublePawn, int lastPawnRow, int lastPawnCol) const {
         int dr = tr-fr, dc = tc-fc;
